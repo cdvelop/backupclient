@@ -19,7 +19,7 @@ func (b *backupClient) BackupDataBase(callback func(err string)) {
 // 	for i, o := range b.getObjectsDB() {
 // 		index := i // Captura el valor de i en esta iteración
 // 		table := o.Table
-// 		b.ReadAsyncDataDB(model.ReadParams{
+// 		b.ReadAsyncDataDB(&model.ReadParams{
 // 			FROM_TABLE: table,
 // 			WHERE:      []map[string]string{{"create": "backup", "update": "backup", "delete": "backup"}},
 // 			RETURN_ANY: true,

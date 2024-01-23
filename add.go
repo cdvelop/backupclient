@@ -30,9 +30,9 @@ func AddBackupHandlerAdapter(h *model.MainHandler, c *Config) (b *backupClient) 
 
 	b = &backupClient{
 		Config:                c,
-		Logger:                h.Logger,
-		FetchAdapter:          h.FetchAdapter,
-		DataBaseAdapter:       h.DataBaseAdapter,
+		Logger:                h,
+		FetchAdapter:          h,
+		DataBaseAdapter:       h,
 		ObjectsHandlerAdapter: h,
 		backupRespond:         func(err string) {},
 		backups:               []*backup{},

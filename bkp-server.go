@@ -3,7 +3,7 @@ package backupclient
 //backup_type ej: "create","update","delete"
 func (b *backupClient) BackupOneObjectType(backup_type, table_name string, data_in any) {
 
-	b.e = "BackupObject: " + table_name + " Type: " + backup_type + " "
+	b.e = "Backup Table:: " + table_name + " Type: " + backup_type + " "
 
 	b.object, b.err = b.GetObjectBY("", table_name)
 	if b.err != "" {
@@ -14,15 +14,17 @@ func (b *backupClient) BackupOneObjectType(backup_type, table_name string, data_
 	b.SendOneRequest("POST", backup_type, b.object.ObjectName, data_in, func(resp []map[string]string, err string) {
 
 		if err != "" {
-			// if backup_required { // necesita respaldo en servidor
+			// if on_server_too { // necesita respaldo en servidor
 			// 	data["create"] = "backup" //estado backup = no respaldado
 			// }
 
-			b.Log(b.e+"error respaldo en el servidor acción:", backup_type, err)
+			b.Log(b.e+"error respaldo en el servidor", err)
 			return
 		}
 
-		b.Log(b.e+"RESPUESTA ACCIÓN DE RESPALDO:", backup_type, "EN EL SERVIDOR:", resp)
+		if len(resp) == 0 {
+			b.Log(b.e + "error se esperaba al menos un dato de respuesta desde el servidor después de la eliminación")
+		}
 
 	})
 }
